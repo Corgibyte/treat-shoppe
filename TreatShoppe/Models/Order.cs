@@ -9,8 +9,9 @@ namespace TreatShoppe.Models
     public int OrderId { get; set; }
     public virtual ICollection<OrderTreat> OrderTreats { get; set; }
     public int TotalPrice { get; set; }
-    [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    [Required, DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateTime DeliveryDate { get; set; }
+    public virtual ApplicationUser User { get; set; }
 
     public Order()
     {

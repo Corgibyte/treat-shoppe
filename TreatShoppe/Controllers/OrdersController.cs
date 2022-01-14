@@ -1,23 +1,33 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using TreatShoppe.Models;
 
 namespace TreatShoppe.Controllers
 {
+  [Authorize]
   public class OrdersController : Controller
   {
     private readonly TreatShoppeContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public OrdersController(TreatShoppeContext db)
+    public OrdersController(UserManager<ApplicationUser> userManager, TreatShoppeContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      return View(_db.Orders.OrderBy(order => order.DeliveryDate).ToList());
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userOrders = _db.Orders.Where(order => order.User.Id == currentUser.Id).ToList();
+      return View(userOrders);
     }
 
     public ActionResult Details(int id)
@@ -35,8 +45,11 @@ namespace TreatShoppe.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Order order)
+    public async Task<ActionResult> Create(Order order)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      order.User = currentUser;
       _db.Orders.Add(order);
       _db.SaveChanges();
       return RedirectToAction("Index");
