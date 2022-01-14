@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TreatShoppe.Models
 {
@@ -7,6 +9,8 @@ namespace TreatShoppe.Models
     public int OrderId { get; set; }
     public virtual ICollection<OrderTreat> OrderTreats { get; set; }
     public int TotalPrice { get; set; }
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    public DateTime DeliveryDate { get; set; }
 
     public Order()
     {
