@@ -7,13 +7,7 @@ namespace TreatShoppe.Models
     public int FlavorTreatId { get; set; }
     public int TreatId { get; set; }
     public int FlavorId { get; set; }
-    public virtual ICollection<Treat> Treats { get; set; }
-    public virtual ICollection<Flavor> Flavors { get; set; }
-
-    public FlavorTreat()
-    {
-      Treats = new HashSet<Treat>();
-      Flavors = new HashSet<Flavor>();
-    }
+    public virtual Treat Treat { get; set; }
+    public virtual Flavor Flavor { get; set; }
   }
 }
