@@ -6,7 +6,7 @@ namespace TreatShoppe.Models
   {
     public int FlavorId { get; set; }
     public string Name { get; set; }
-    public ICollection<FlavorTreat> FlavorTreats { get; set; }
+    public virtual ICollection<FlavorTreat> FlavorTreats { get; set; }
 
     public Flavor()
     {

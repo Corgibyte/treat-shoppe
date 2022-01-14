@@ -8,8 +8,8 @@ namespace TreatShoppe.Models
     public string Name { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
-    public ICollection<OrderTreat> OrderTreats { get; set; }
-    public ICollection<FlavorTreat> FlavorTreats { get; set; }
+    public virtual ICollection<OrderTreat> OrderTreats { get; set; }
+    public virtual ICollection<FlavorTreat> FlavorTreats { get; set; }
 
     public Treat()
     {
