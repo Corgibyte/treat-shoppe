@@ -84,6 +84,8 @@ namespace TreatShoppe.Controllers
       if (treatId != 0)
       {
         _db.OrderTreats.Add(new OrderTreat() { TreatId = treatId, OrderId = order.OrderId });
+        order.RecalculateTotalPrice();
+        _db.Entry(order).State = EntityState.Modified;
       }
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = order.OrderId });
@@ -94,6 +96,8 @@ namespace TreatShoppe.Controllers
     {
       OrderTreat thisOrderTreat = _db.OrderTreats.FirstOrDefault(orderTreat => orderTreat.OrderTreatId == orderTreatId);
       _db.OrderTreats.Remove(thisOrderTreat);
+      thisOrderTreat.Order.RecalculateTotalPrice();
+      _db.Entry(thisOrderTreat.Order).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = thisOrderTreat.OrderId });
     }
