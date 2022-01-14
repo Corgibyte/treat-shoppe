@@ -51,51 +51,51 @@ namespace TreatShoppe.Controllers
     [HttpPost]
     public ActionResult Edit(Order order)
     {
-      _db.Entry(treat).State = EntityState.Modified;
+      _db.Entry(order).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = treat.TreatId });
+      return RedirectToAction("Details", new { id = order.OrderId });
     }
 
     public ActionResult Delete(int id)
     {
-      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      return View(thisTreat);
+      Order thisOrder = _db.Orders.FirstOrDefault(order => order.OrderId == id);
+      return View(thisOrder);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      _db.Treats.Remove(thisTreat);
+      Order thisOrder = _db.Orders.FirstOrDefault(order => order.OrderId == id);
+      _db.Orders.Remove(thisOrder);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddFlavor(int id)
+    public ActionResult AddTreat(int id)
     {
-      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
-      return View(thisTreat);
+      Order thisOrder = _db.Orders.FirstOrDefault(order => order.OrderId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      return View(thisOrder);
     }
 
     [HttpPost]
-    public ActionResult AddFlavor(Treat treat, int flavorId)
+    public ActionResult AddTreat(Order order, int treatId)
     {
-      if (flavorId != 0)
+      if (treatId != 0)
       {
-        _db.FlavorTreats.Add(new FlavorTreat() { FlavorId = flavorId, TreatId = treat.TreatId });
+        _db.OrderTreats.Add(new OrderTreat() { TreatId = treatId, OrderId = order.OrderId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = treat.TreatId });
+      return RedirectToAction("Details", new { id = order.OrderId });
     }
 
     [HttpPost]
-    public ActionResult DeleteFlavor(int flavorTreatId)
+    public ActionResult DeleteTreat(int orderTreatId)
     {
-      FlavorTreat thisFlavorTreat = _db.FlavorTreats.FirstOrDefault(flavorTreat => flavorTreat.FlavorTreatId == flavorTreatId);
-      _db.FlavorTreats.Remove(thisFlavorTreat);
+      OrderTreat thisOrderTreat = _db.OrderTreats.FirstOrDefault(orderTreat => orderTreat.OrderTreatId == orderTreatId);
+      _db.OrderTreats.Remove(thisOrderTreat);
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = thisFlavorTreat.TreatId });
+      return RedirectToAction("Details", new { id = thisOrderTreat.OrderId });
     }
   }
 }
