@@ -1,4 +1,4 @@
-Treats Copyright 2021 Hannah Young
+TreatShoppe Copyright 2021 Hannah Young
 
 Hippocratic License Version Number: 2.1.
 

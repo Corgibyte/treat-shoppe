@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Treats.Models;
+using TreatShoppe.Models;
 
-namespace Treats
+namespace TreatShoppe
 {
   public class Startup
   {
@@ -24,8 +24,8 @@ namespace Treats
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
-      services.AddEntityFrameworkMySql().AddDbContext<TreatContext>(options => options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
-      services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TreatContext>().AddDefaultTokenProviders();
+      services.AddEntityFrameworkMySql().AddDbContext<TreatShoppeContext>(options => options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+      services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TreatShoppeContext>().AddDefaultTokenProviders();
       services.Configure<IdentityOptions>(options =>
       {
         options.Password.RequireDigit = false;
