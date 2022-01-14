@@ -1,0 +1,14 @@
+@model TreatShoppe.Models.Order
+
+<h4>Edit this order:</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.OrderId)
+
+  <input class="form-control" asp-for="DeliveryDate" />
+
+  <input type="submit" value="Create new order" class="btn btn-default" />
+}
+
+@Html.ActionLink("Back to order", "Details", new { id = Model.OrderId })

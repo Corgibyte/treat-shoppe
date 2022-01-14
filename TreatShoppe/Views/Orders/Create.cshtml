@@ -1,0 +1,12 @@
+@model TreatShoppe.Models.Order
+
+<h4>Add a new order</h4>
+
+@using (Html.BeginForm())
+{
+  <input class="form-control" asp-for="DeliveryDate" />
+
+  <input type="submit" value="Create new order" class="btn btn-default" />
+}
+
+@Html.ActionLink("Back to orders", "Index")

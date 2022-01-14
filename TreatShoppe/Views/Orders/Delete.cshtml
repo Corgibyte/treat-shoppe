@@ -1,0 +1,10 @@
+@model TreatShoppe.Models.Order
+
+<h2>Are you sure you want to delete this order: Order #@Html.DisplayFor(model => model.OrderId)?</h2>
+
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete" />
+}
+
+@Html.ActionLink("Back to order", "Details", new { id = Model.OrderId })

@@ -1,0 +1,21 @@
+@using TreatShoppe.Models;
+@model IEnumerable<TreatShoppe.Models.Order>
+
+<h1>Orders</h1>
+
+@if (@Model.Any())
+{
+  <ul>
+  @foreach (Order order in Model)
+    {
+      <li>@Html.ActionLink($"Order #{order.OrderId}: {order.DeliveryDate.ToString("yyyy-MM-dd")}", "Details", new { id = order.OrderId })</li>
+    }
+  </ul>
+}
+else
+{
+  <h6>No orders have been added</h6>
+}
+
+@Html.ActionLink("Add new order", "Create")
+@Html.ActionLink("Home", "Index", "Home")

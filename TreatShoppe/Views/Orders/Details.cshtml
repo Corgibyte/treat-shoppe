@@ -1,0 +1,33 @@
+@using TreatShoppe.Models;
+@model TreatShoppe.Models.Order
+
+<h2>Order Details</h2>
+<hr />
+<h3>Order #: @Html.DisplayFor(model => model.OrderId)</h3>
+<p><strong>Delivery date:</strong> @Html.DisplayFor(model => model.DeliveryDate)
+<p><strong>Total price:</strong> $@Html.DisplayFor(model => model.TotalPrice)
+
+@if (@Model.OrderTreats.Count == 0)
+{
+  <p>This treat contains no treats</p>
+}
+else
+{
+  <h4>Treats in order:</h4>
+  <ul>
+  @foreach (OrderTreat orderTreat in Model.OrderTreats)
+    {
+      <li>@orderTreat.Treat.Name</li>
+      @using (Html.BeginForm("DeleteTreat", "Orders"))
+      {
+        @Html.Hidden("orderTreatId", @orderTreat.OrderTreatId)
+        <input type="submit" value="Delete" />
+      }
+    }
+  </ul>
+}
+
+@Html.ActionLink("Add treat to order", "AddTreat", new { id = Model.OrderId })
+@Html.ActionLink("Edit order", "Edit", new { id = Model.OrderId })
+@Html.ActionLink("Delete order", "Delete", new { id = Model.OrderId })
+@Html.ActionLink("Back to list", "Index")
