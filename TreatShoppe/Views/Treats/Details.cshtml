@@ -19,11 +19,17 @@ else
   <ul>
   @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
     {
-      <li>flavorTreat.Flavor.Name</li>
+      <li>@flavorTreat.Flavor.Name</li>
+      @using (Html.BeginForm("DeleteFlavor", "Treats"))
+      {
+        @Html.Hidden("flavorTreatId", @flavorTreat.FlavorTreatId)
+        <input type="submit" value="Delete" />
+      }
     }
   </ul>
 }
 
+@Html.ActionLink("Add flavor to treat", "AddFlavor", new { id = Model.TreatId })
 @Html.ActionLink("Edit treat", "Edit", new { id = Model.TreatId })
 @Html.ActionLink("Delete treat", "Delete", new { id = Model.TreatId })
 @Html.ActionLink("Back to list", "Index")

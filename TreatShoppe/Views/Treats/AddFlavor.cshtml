@@ -1,0 +1,15 @@
+@model TreatShoppe.Models.Treat
+
+<h4>Add flavor to @Html.DisplayFor(model => model.Name):</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TreatId)
+
+  @Html.Label("Select flavor")
+  @Html.DropDownList("FlavorId")
+
+  <input type="submit" value="Save" />
+}
+
+@Html.ActionLink("Back to treat", "Details", new {id = Model.TreatId })
