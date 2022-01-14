@@ -34,12 +34,13 @@ namespace TreatShoppe.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Register(RegisterViewModel model)
+    public async Task<ActionResult> Register(RegisterViewModel model, string RoleName)
     {
       ApplicationUser user = new ApplicationUser { UserName = model.Email };
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
       if (result.Succeeded)
       {
+        await _userManager.AddToRoleAsync(user, RoleName);
         return RedirectToAction("Index");
       }
       else
@@ -84,6 +85,11 @@ namespace TreatShoppe.Controllers
     {
       await _roleManager.CreateAsync(role);
       return RedirectToAction("Index", "Home");
+    }
+
+    public IActionResult AccessDenied()
+    {
+      return View();
     }
   }
 }

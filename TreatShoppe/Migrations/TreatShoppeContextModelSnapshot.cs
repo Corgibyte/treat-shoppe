@@ -197,9 +197,6 @@ namespace TreatShoppe.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
 
-                    b.Property<string>("roleId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -208,8 +205,6 @@ namespace TreatShoppe.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("roleId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -362,15 +357,6 @@ namespace TreatShoppe.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TreatShoppe.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "role")
-                        .WithMany()
-                        .HasForeignKey("roleId");
-
-                    b.Navigation("role");
                 });
 
             modelBuilder.Entity("TreatShoppe.Models.FlavorTreat", b =>

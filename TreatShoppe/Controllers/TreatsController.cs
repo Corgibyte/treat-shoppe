@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -6,15 +8,19 @@ using TreatShoppe.Models;
 
 namespace TreatShoppe.Controllers
 {
+  [Authorize]
   public class TreatsController : Controller
   {
     private readonly TreatShoppeContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(TreatShoppeContext db)
+    public TreatsController(UserManager<ApplicationUser> userManager, TreatShoppeContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       return View(_db.Treats.ToList());
@@ -29,11 +35,13 @@ namespace TreatShoppe.Controllers
       return View(thisTreat);
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult Create()
     {
       return View();
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult Create(Treat treat)
     {
@@ -42,12 +50,14 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult Edit(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult Edit(Treat treat)
     {
@@ -56,12 +66,14 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Details", new { id = treat.TreatId });
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult Delete(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -71,6 +83,7 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult AddFlavor(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
@@ -78,6 +91,7 @@ namespace TreatShoppe.Controllers
       return View(thisTreat);
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult AddFlavor(Treat treat, int flavorId)
     {
@@ -89,6 +103,7 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Details", new { id = treat.TreatId });
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult DeleteFlavor(int flavorTreatId)
     {

@@ -3,6 +3,10 @@
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello @User.Identity.Name</p>
+  @if (User.IsInRole("admin"))
+  {
+    <p>admin</p>
+  }
   @using (Html.BeginForm("Logoff", "Account"))
   {
     <input type="submit" class="btn btn-default" value="Log out" />
