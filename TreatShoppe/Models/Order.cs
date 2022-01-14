@@ -12,5 +12,15 @@ namespace TreatShoppe.Models
     {
       OrderTreats = new HashSet<OrderTreat>();
     }
+
+    public void RecalculateTotalPrice()
+    {
+      int total = 0;
+      foreach (OrderTreat orderTreat in OrderTreats)
+      {
+        total += orderTreat.Treat.Price;
+      }
+      TotalPrice = total;
+    }
   }
 }
