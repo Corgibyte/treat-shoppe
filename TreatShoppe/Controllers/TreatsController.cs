@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +11,9 @@ namespace TreatShoppe.Controllers
   public class TreatsController : Controller
   {
     private readonly TreatShoppeContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(UserManager<ApplicationUser> userManager, TreatShoppeContext db)
+    public TreatsController(TreatShoppeContext db)
     {
-      _userManager = userManager;
       _db = db;
     }
 
