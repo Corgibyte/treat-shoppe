@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using TreatShoppe.Models;
 
 namespace TreatShoppe.Controllers
 {
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly TreatShoppeContext _db;
@@ -14,6 +18,7 @@ namespace TreatShoppe.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       return View(_db.Flavors.ToList());
@@ -28,11 +33,13 @@ namespace TreatShoppe.Controllers
       return View(thisFlavor);
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult Create()
     {
       return View();
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult Create(Flavor flavor)
     {
@@ -41,12 +48,14 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult Edit(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult Edit(Flavor flavor)
     {
@@ -55,12 +64,14 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
 
+    [Authorize(Roles = "admin")]
     public ActionResult Delete(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
