@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using TreatShoppe.Models;
@@ -11,11 +12,13 @@ namespace TreatShoppe.Controllers
     private readonly TreatShoppeContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, TreatShoppeContext db)
+    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, TreatShoppeContext db)
     {
       _userManager = userManager;
       _signInManager = signInManager;
+      _roleManager = roleManager;
       _db = db;
     }
 
@@ -26,6 +29,7 @@ namespace TreatShoppe.Controllers
 
     public IActionResult Register()
     {
+      ViewBag.RoleName = new SelectList(_roleManager.Roles, "Name", "Name");
       return View();
     }
 
@@ -68,6 +72,18 @@ namespace TreatShoppe.Controllers
     {
       await _signInManager.SignOutAsync();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult AddRole()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> AddRole(IdentityRole role)
+    {
+      await _roleManager.CreateAsync(role);
+      return RedirectToAction("Index", "Home");
     }
   }
 }

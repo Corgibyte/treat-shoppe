@@ -25,7 +25,9 @@ namespace TreatShoppe
     {
       services.AddMvc();
       services.AddEntityFrameworkMySql().AddDbContext<TreatShoppeContext>(options => options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
-      services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TreatShoppeContext>().AddDefaultTokenProviders();
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddEntityFrameworkStores<TreatShoppeContext>()
+        .AddDefaultTokenProviders();
       services.Configure<IdentityOptions>(options =>
       {
         options.Password.RequireDigit = false;

@@ -15,5 +15,8 @@
   @Html.LabelFor(user => user.ConfirmPassword)
   @Html.PasswordFor(user => user.ConfirmPassword)
 
+  @Html.Label("Role")
+  @Html.DropDownList("RoleName")
+
   <input type="submit" value="Register" />
 }

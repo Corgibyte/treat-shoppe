@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TreatShoppe.Models;
 
 namespace TreatShoppe.Migrations
 {
     [DbContext(typeof(TreatShoppeContext))]
-    partial class TreatShoppeContextModelSnapshot : ModelSnapshot
+    [Migration("20220114223835_AddIdentityRoleToUser")]
+    partial class AddIdentityRoleToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
