@@ -1,0 +1,15 @@
+@model TreatShoppe.Models.Flavor
+
+<h4>Edit this flavor: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.FlavorId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  <input type="submit" value="Save changes" class="btn btn-default" />
+}
+
+@Html.ActionLink("Back to flavor", "Details", new {id = Model.FlavorId })

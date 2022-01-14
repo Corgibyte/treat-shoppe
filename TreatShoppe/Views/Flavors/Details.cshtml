@@ -1,0 +1,25 @@
+@using TreatShoppe.Models;
+@model TreatShoppe.Models.Flavor
+
+<h2>Flavor Details</h2>
+<hr />
+<h3>Flavor Name: @Html.DisplayFor(model => model.Name)</h3>
+
+@if (@Model.FlavorTreats.Count == 0)
+{
+  <p>No treats use this flavor</p>
+}
+else
+{
+  <h4>Treats that use this flavor:</h4>
+  <ul>
+  @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
+    {
+      <li>flavorTreat.Treat.Name</li>
+    }
+  </ul>
+}
+
+@Html.ActionLink("Edit flavor", "Edit", new { id = Model.FlavorId })
+@Html.ActionLink("Delete flavor", "Delete", new { id = Model.FlavorId })
+@Html.ActionLink("Back to list", "Index")

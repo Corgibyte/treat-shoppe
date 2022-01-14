@@ -1,0 +1,10 @@
+@model TreatShoppe.Models.Flavor
+
+<h2>Are you sure you want to delete this flavor: @Html.DisplayFor(model => model.Name)?</h2>
+
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete" />
+}
+
+@Html.ActionLink("Back to flavor", "Details", new { id = Model.FlavorId })
