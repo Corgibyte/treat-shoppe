@@ -17,7 +17,7 @@ namespace TreatShoppe.Controllers
 
     public ActionResult Index()
     {
-      return View(_db.Orders.ToList());
+      return View(_db.Orders.OrderBy(order => order.DeliveryDate).ToList());
     }
 
     public ActionResult Details(int id)
