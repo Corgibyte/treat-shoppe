@@ -1,0 +1,21 @@
+@using TreatShoppe.Models;
+@model IEnumerable<TreatShoppe.Models.Treat>
+
+<h1>Treats</h1>
+
+@if (@Model.Any())
+{
+  <ul>
+  @foreach (Treat treat in Model)
+    {
+      <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+    }
+  </ul>
+}
+else
+{
+  <h6>No treats have been added</h6>
+}
+
+@Html.ActionLink("Add new treat", "Create")
+@Html.ActionLink("Home", "Index", "Home")
