@@ -5,31 +5,40 @@
 <hr />
 <h3>Treat Name: @Html.DisplayFor(model => model.Name)</h3>
 
-<p><strong>Treat description:</strong> @Html.DisplayFor(model => model.Description)</p>
+<div class="inner-pane">
+  <p><strong>Treat Description:</strong> @Html.DisplayFor(model => model.Description)</p>
 
-<p><strong>Price:</strong> $@Html.DisplayFor(model => model.Price)</p>
+  <p><strong>Price:</strong> $@Html.DisplayFor(model => model.Price)</p>
 
-@if (@Model.FlavorTreats.Count == 0)
-{
-  <p>This treat contains no flavors</p>
-}
-else
-{
-  <h4>Treat flavors:</h4>
-  <ul>
-  @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
-    {
-      <li>@flavorTreat.Flavor.Name</li>
-      @using (Html.BeginForm("DeleteFlavor", "Treats"))
+  @if (@Model.FlavorTreats.Count == 0)
+  {
+    <h3>This treat contains no flavors</h3>
+  }
+  else
+  {
+    <h4>Treat flavors:</h4>
+    <ul>
+      @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
       {
-        @Html.Hidden("flavorTreatId", @flavorTreat.FlavorTreatId)
-        <input type="submit" value="Delete" />
+        <div class="deep-pane">
+          <li>@Html.ActionLink(flavorTreat.Flavor.Name, "Details", "Flavors")
+            @using (Html.BeginForm("DeleteFlavor", "Treats"))
+            {
+              @Html.Hidden("flavorTreatId", @flavorTreat.FlavorTreatId)
+              <button class="btn" type="submit">Delete Flavor</button>
+            }
+          </li>
+        </div>
       }
-    }
-  </ul>
-}
+    </ul>
+  }
+</div>
 
-@Html.ActionLink("Add flavor to treat", "AddFlavor", new { id = Model.TreatId })
-@Html.ActionLink("Edit treat", "Edit", new { id = Model.TreatId })
-@Html.ActionLink("Delete treat", "Delete", new { id = Model.TreatId })
-@Html.ActionLink("Back to list", "Index")
+@if (User.IsInRole("admin"))
+{
+  <div class="btn-group-vertical" role="group">
+  @Html.ActionLink("Add flavor to treat", "AddFlavor", new { id = Model.TreatId }, new { @role="button", @class="btn" })
+  @Html.ActionLink("Edit treat", "Edit", new { id = Model.TreatId }, new { @role="button", @class="btn" })
+  @Html.ActionLink("Delete treat", "Delete", new { id = Model.TreatId }, new { @role="button", @class="btn" })
+</div>
+}

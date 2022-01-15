@@ -5,21 +5,29 @@
 <hr />
 <h3>Flavor Name: @Html.DisplayFor(model => model.Name)</h3>
 
-@if (@Model.FlavorTreats.Count == 0)
-{
-  <p>No treats use this flavor</p>
-}
-else
-{
-  <h4>Treats that use this flavor:</h4>
-  <ul>
-  @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
-    {
-      <li>@flavorTreat.Treat.Name</li>
-    }
-  </ul>
-}
+<div class="inner-pane">
+  @if (@Model.FlavorTreats.Count == 0)
+  {
+    <p>No treats use this flavor</p>
+  }
+  else
+  {
+    <h4>Treats that use this flavor:</h4>
+    <div class="deep-pane">
+      <div class="btn-group-vertical" role="group">
+        @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
+        {
+          @Html.ActionLink(flavorTreat.Treat.Name, "Details", "Treats", new { id = flavorTreat.Treat.TreatId }, new { @role="button", @class="btn" })
+        }
+      </div>
+    </div>
+  }
+</div>
 
-@Html.ActionLink("Edit flavor", "Edit", new { id = Model.FlavorId })
-@Html.ActionLink("Delete flavor", "Delete", new { id = Model.FlavorId })
-@Html.ActionLink("Back to list", "Index")
+@if (User.IsInRole("admin"))
+{
+  <div class="btn-group-vertical" role="group">
+  @Html.ActionLink("Edit flavor", "Edit", new { id = Model.FlavorId })
+  @Html.ActionLink("Delete flavor", "Delete", new { id = Model.FlavorId })
+</div>
+}

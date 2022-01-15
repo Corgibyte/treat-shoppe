@@ -150,3 +150,17 @@ nav {
   color:var(--aurora-03);
   padding-bottom:0;
 }
+
+strong {
+  color:var(--aurora-01);
+}
+
+.deep-pane > li {
+  text-align:center;
+}
+
+.deep-pane > li > a {
+  text-decoration: none;
+  font-weight:bold;
+  font-size:larger;
+}
