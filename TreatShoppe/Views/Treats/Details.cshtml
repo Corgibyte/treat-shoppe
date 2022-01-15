@@ -21,11 +21,14 @@
       @foreach (FlavorTreat flavorTreat in Model.FlavorTreats)
       {
         <div class="deep-pane">
-          <li>@Html.ActionLink(flavorTreat.Flavor.Name, "Details", "Flavors")
-            @using (Html.BeginForm("DeleteFlavor", "Treats"))
+          <li>@Html.ActionLink(flavorTreat.Flavor.Name, "Details", "Flavors", new {id = flavorTreat.FlavorId })
+            @if (User.IsInRole("admin"))
             {
-              @Html.Hidden("flavorTreatId", @flavorTreat.FlavorTreatId)
-              <button class="btn" type="submit">Delete Flavor</button>
+              @using (Html.BeginForm("DeleteFlavor", "Treats"))
+              {
+                @Html.Hidden("flavorTreatId", @flavorTreat.FlavorTreatId)
+                <button class="btn" type="submit">Delete Flavor</button>
+              }
             }
           </li>
         </div>
