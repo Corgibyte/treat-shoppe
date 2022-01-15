@@ -84,7 +84,10 @@ namespace TreatShoppe.Controllers
     public ActionResult AddFlavor(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+      var query = _db.Flavors.Include(flavor => flavor.FlavorTreats)
+        .ThenInclude(flavorTreat => flavorTreat.Treat)
+        .Where(flavor => !flavor.FlavorTreats.Any(flavorTreat => flavorTreat.TreatId == id));
+      ViewBag.FlavorId = new SelectList(query, "FlavorId", "Name");
       return View(thisTreat);
     }
 

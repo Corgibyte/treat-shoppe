@@ -7,8 +7,8 @@
   {
     @Html.HiddenFor(model => model.TreatId)
 
-    @Html.Label("Select flavor")
-    @Html.DropDownList("FlavorId")
+    @Html.Label("Select flavor", null, new {@class="form-label"})
+    @Html.DropDownList("FlavorId", null, "--Flavor--", new {@class = "form-control form-select"})
 
     <button type="submit" class="btn btn-input">Add</button>
   }
