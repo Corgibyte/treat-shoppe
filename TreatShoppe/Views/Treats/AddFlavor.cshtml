@@ -2,14 +2,16 @@
 
 <h4>Add flavor to @Html.DisplayFor(model => model.Name):</h4>
 
-@using (Html.BeginForm())
-{
-  @Html.HiddenFor(model => model.TreatId)
+<div class="inner-pane">
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.TreatId)
 
-  @Html.Label("Select flavor")
-  @Html.DropDownList("FlavorId")
+    @Html.Label("Select flavor")
+    @Html.DropDownList("FlavorId")
 
-  <input type="submit" value="Save" />
-}
+    <button type="submit" class="btn btn-input">Add</button>
+  }
+</div>
 
-@Html.ActionLink("Back to treat", "Details", new {id = Model.TreatId })
+@Html.ActionLink("Back to treat", "Details", new {id = Model.TreatId }, new { @role="button", @class="btn" })
