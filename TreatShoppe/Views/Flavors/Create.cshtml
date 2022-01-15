@@ -2,12 +2,12 @@
 
 <h4>Add a new flavor</h4>
 
-@using (Html.BeginForm())
-{
-  @Html.LabelFor(model => model.Name)
-  @Html.TextBoxFor(model => model.Name)
+<div class="inner-pane">
+  @using (Html.BeginForm())
+  {
+    @Html.LabelFor(model => model.Name, new {@class="form-label"})
+    @Html.TextBoxFor(model => model.Name, new {@class="form-control", @required=true})
 
-  <input type="submit" value="Add new flavor" class="btn btn-default" />
-}
-
-@Html.ActionLink("Back to flavors", "Index")
+    <button class="btn btn-input" type="submit">Add Flavor</button>
+  }
+</div>
