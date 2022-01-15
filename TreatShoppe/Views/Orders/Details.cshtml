@@ -4,30 +4,38 @@
 <h2>Order Details</h2>
 <hr />
 <h3>Order #: @Html.DisplayFor(model => model.OrderId)</h3>
-<p><strong>Delivery date:</strong> @Html.DisplayFor(model => model.DeliveryDate)
-<p><strong>Total price:</strong> $@Html.DisplayFor(model => model.TotalPrice)
 
-@if (@Model.OrderTreats.Count == 0)
-{
-  <p>This treat contains no treats</p>
-}
-else
-{
-  <h4>Treats in order:</h4>
-  <ul>
-  @foreach (OrderTreat orderTreat in Model.OrderTreats)
-    {
-      <li>@orderTreat.Treat.Name</li>
-      @using (Html.BeginForm("DeleteTreat", "Orders"))
+<div class="inner-pane">
+  <p><strong>Delivery date:</strong> @Html.DisplayFor(model => model.DeliveryDate)
+  <p><strong>Total price:</strong> $@Html.DisplayFor(model => model.TotalPrice)
+
+    @if (@Model.OrderTreats.Count == 0)
       {
-        @Html.Hidden("orderTreatId", @orderTreat.OrderTreatId)
-        <input type="submit" value="Delete" />
+    <h3>This treat contains no treats</h3>
       }
-    }
-  </ul>
-}
+      else
+      {
+    <h4>Treats in order:</h4>
+    <ul>
+          @foreach (OrderTreat orderTreat in Model.OrderTreats)
+          {
+        <div class="deep-pane">
+          <li>
+                @Html.ActionLink(orderTreat.Treat.Name, "Details", "Treats")
+                @using (Html.BeginForm("DeleteTreat", "Orders"))
+                {
+                  @Html.Hidden("orderTreatId", @orderTreat.OrderTreatId)
+              <button class="btn" type="submit">Delete Treat</button>
+                }
+          </li>
+        </div>
+          }
+    </ul>
+      }
+</div>
 
-@Html.ActionLink("Add treat to order", "AddTreat", new { id = Model.OrderId })
-@Html.ActionLink("Edit order", "Edit", new { id = Model.OrderId })
-@Html.ActionLink("Delete order", "Delete", new { id = Model.OrderId })
-@Html.ActionLink("Back to list", "Index")
+<div class="btn-group-vertical" role="group">
+  @Html.ActionLink("Add treat to order", "AddTreat", new { id = Model.OrderId }, new { @role="button", @class="btn" })
+  @Html.ActionLink("Edit order", "Edit", new { id = Model.OrderId }, new { @role="button", @class="btn" })
+  @Html.ActionLink("Delete order", "Delete", new { id = Model.OrderId }, new { @role="button", @class="btn" })
+</div>
