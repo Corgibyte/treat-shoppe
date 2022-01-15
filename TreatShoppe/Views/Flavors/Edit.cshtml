@@ -2,14 +2,16 @@
 
 <h4>Edit this flavor: @Html.DisplayFor(model => model.Name)</h4>
 
-@using (Html.BeginForm())
-{
-  @Html.HiddenFor(model => model.FlavorId)
+<div class="inner-pane">
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.FlavorId)
 
-  @Html.LabelFor(model => model.Name)
-  @Html.TextBoxFor(model => model.Name)
+    @Html.LabelFor(model => model.Name, new {@class="form-label"})
+    @Html.TextBoxFor(model => model.Name, new {@class="form-control", @required = true})
 
-  <input type="submit" value="Save changes" class="btn btn-default" />
-}
+    <button type="submit" class="btn btn-input">Save Changes</button>
+  }
+</div>
 
-@Html.ActionLink("Back to flavor", "Details", new {id = Model.FlavorId })
+@Html.ActionLink("Back to flavor", "Details", new {id = Model.FlavorId }, new { @role="button", @class="btn" })
