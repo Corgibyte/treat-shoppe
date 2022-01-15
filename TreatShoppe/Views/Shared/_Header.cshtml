@@ -1,0 +1,30 @@
+@if (User.Identity.IsAuthenticated)
+{
+  <nav>
+  <ul id="nav-ul">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+    <li>@Html.ActionLink("Treats", "Index", "Treats")</li>
+    <li id="last-nav-li">@Html.ActionLink("Flavors", "Index", "Flavors")</li>
+    <li>
+      <p>@User.Identity.Name</p>
+    </li>
+    @using (Html.BeginForm("LogOff", "Account"))
+      {
+        <li><input class="button-to-link" type="submit" value="LogOff" /></li>
+      }
+    </ul>
+  </nav>
+}
+else
+{
+  <nav>
+  <ul id="nav-ul">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("Treats", "Index", "Treats")</li>
+    <li id="last-nav-li">@Html.ActionLink("Flavors", "Index", "Flavors")</li>
+    <li>@Html.ActionLink("Login", "Login", "Account")</li>
+    <li>@Html.ActionLink("Register", "Register", "Account")</li>
+  </ul>
+</nav>
+}
