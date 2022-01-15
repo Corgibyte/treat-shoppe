@@ -3,19 +3,23 @@
 
 <h1>Flavors</h1>
 
-@if (@Model.Any())
-{
-  <ul>
-  @foreach (Flavor flavor in Model)
-    {
-      <li>@Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })</li>
-    }
-  </ul>
-}
-else
-{
-  <h6>No flavors have been added</h6>
-}
+<div class="inner-pane">
+  @if (@Model.Any())
+  {
+    <div class="btn-group-vertical" role="group">
+      @foreach (Flavor flavor in Model)
+      {
+        @Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId }, new { @role="button", @class="btn" })
+      }
+    </div>
+  }
+  else
+  {
+    <h3>No flavors have been added</h3>
+  }
+</div>
 
-@Html.ActionLink("Add new flavor", "Create")
-@Html.ActionLink("Home", "Index", "Home")
+@if (User.IsInRole("admin"))
+{
+  @Html.ActionLink("Add new flavor", "Create", new { }, new { @role="button", @class="btn" })
+}

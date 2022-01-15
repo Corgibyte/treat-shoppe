@@ -3,19 +3,23 @@
 
 <h1>Treats</h1>
 
-@if (@Model.Any())
-{
-  <ul>
-  @foreach (Treat treat in Model)
-    {
-      <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
-    }
-  </ul>
-}
-else
-{
-  <h6>No treats have been added</h6>
-}
+<div class="inner-pane">
+  @if (@Model.Any())
+  {
+    <div class="btn-group-vertical" role="group">
+      @foreach (Treat treat in Model)
+      {
+        @Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId }, new { @role="button", @class="btn" })
+      }
+    </div>
+  }
+  else
+  {
+    <h3>No treats have been added</h3>
+  }
+</div>
 
-@Html.ActionLink("Add new treat", "Create")
-@Html.ActionLink("Home", "Index", "Home")
+@if (User.IsInRole("admin"))
+{
+  @Html.ActionLink("Add new treat", "Create", new { }, new { @role="button", @class="btn" })
+}

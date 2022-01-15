@@ -1,21 +1,3 @@
 <h1>Welcome to Pierre's Treat Shoppe</h1>
 
-@if (User.Identity.IsAuthenticated)
-{
-  <p>Hello @User.Identity.Name</p>
-  @if (User.IsInRole("admin"))
-  {
-    <p>admin</p>
-  }
-  @using (Html.BeginForm("Logoff", "Account"))
-  {
-    <input type="submit" class="btn btn-default" value="Log out" />
-  }
-}
-
-@Html.ActionLink("See all flavors", "Index", "Flavors")
-@Html.ActionLink("See all treats", "Index", "Treats")
-@Html.ActionLink("See all orders", "Index", "Orders")
-@Html.ActionLink("Login", "Login", "Account")
-@Html.ActionLink("Register", "Register", "Account")
 @Html.ActionLink("Add role", "AddRole", "Account")
