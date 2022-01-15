@@ -1,12 +1,12 @@
-@using TreatShoppe.Models;
+@using TreatShoppe.Models
 @model IEnumerable<TreatShoppe.Models.Order>
 
-<h1>Orders for @User.Identity.Name</h1>
+<h1>Orders for all users</h1>
 
 <div class="inner-pane">
   @if (@Model.Any())
   {
-    <div class="btn-group-vertical" role="group">
+    <div class="btn-group-vertical" role="gropu">
       @foreach (Order order in Model)
       {
         @Html.ActionLink($"Order #{order.OrderId}: {order.DeliveryDate.ToString("yyyy-MM-dd")}", "Details", new { id = order.OrderId }, new { @role="button", @class="btn" })
@@ -21,8 +21,5 @@
 
 <div class="btn-group-vertical" role="group">
   @Html.ActionLink("Add new order", "Create", new { }, new { @role="button", @class="btn" })
-  @if (User.IsInRole("admin"))
-  {
-    @Html.ActionLink("ADMIN: Manage all orders", "Manage", new { }, new { @role="buCreatetton", @class="btn" })
-  }
+  @Html.ActionLink("View only user's orders", "Index", new { }, new { @role="buCreatetton", @class="btn" })
 </div>

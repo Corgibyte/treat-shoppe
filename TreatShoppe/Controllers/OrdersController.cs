@@ -30,6 +30,12 @@ namespace TreatShoppe.Controllers
       return View(userOrders);
     }
 
+    [Authorize(Roles = "admin")]
+    public ActionResult Manage()
+    {
+      return View(_db.Orders.OrderBy(order => order.DeliveryDate));
+    }
+
     public ActionResult Details(int id)
     {
       Order thisOrder = _db.Orders
