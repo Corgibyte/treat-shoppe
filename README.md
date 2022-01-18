@@ -45,16 +45,6 @@ This is a web application that showcases my ability to develop a robust ASP.NET 
 8. Run project: `dotnet run`
 9. Use browser to navigate to `localhost:5000`
 
-#### Authorization
-
-Initial setup with fresh database requires adding both `admin` and `user` roles:
-
-1. From the home landing page, click the `Add Role` link
-2. In the name field enter `admin` and click `Add role`
-3. Repeat steps 1 and 2 above substituting the role name `user` for `admin`
-4. Create admin user by clicking the `Register` button in the navbar and filling out the form, being sure to select the role `admin`
-5. Create user user by following 4 above and selecting the role `user`
-
 ### Known bugs:
 
 * None as of 01/15/2022 13:00

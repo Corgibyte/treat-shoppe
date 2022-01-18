@@ -75,7 +75,8 @@ namespace TreatShoppe.Controllers
       return RedirectToAction("Index", "Home");
     }
 
-    public ActionResult AddRole()
+    //! Disabled add role routes because currently not needed
+    /* public ActionResult AddRole()
     {
       return View();
     }
@@ -85,7 +86,7 @@ namespace TreatShoppe.Controllers
     {
       await _roleManager.CreateAsync(role);
       return RedirectToAction("Index", "Home");
-    }
+    } */
 
     public IActionResult AccessDenied()
     {
